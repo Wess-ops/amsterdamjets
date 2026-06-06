@@ -9,11 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as HelicopterRouteImport } from './routes/helicopter'
+import { Route as FleetRouteImport } from './routes/fleet'
 import { Route as EmptyLegsRouteImport } from './routes/empty-legs'
 import { Route as DestinationsRouteImport } from './routes/destinations'
 import { Route as BespokeRouteImport } from './routes/bespoke'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RoutesSlugRouteImport } from './routes/routes.$slug'
 
+const HelicopterRoute = HelicopterRouteImport.update({
+  id: '/helicopter',
+  path: '/helicopter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FleetRoute = FleetRouteImport.update({
+  id: '/fleet',
+  path: '/fleet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmptyLegsRoute = EmptyLegsRouteImport.update({
   id: '/empty-legs',
   path: '/empty-legs',
@@ -34,18 +47,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RoutesSlugRoute = RoutesSlugRouteImport.update({
+  id: '/routes/$slug',
+  path: '/routes/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bespoke': typeof BespokeRoute
   '/destinations': typeof DestinationsRoute
   '/empty-legs': typeof EmptyLegsRoute
+  '/fleet': typeof FleetRoute
+  '/helicopter': typeof HelicopterRoute
+  '/routes/$slug': typeof RoutesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bespoke': typeof BespokeRoute
   '/destinations': typeof DestinationsRoute
   '/empty-legs': typeof EmptyLegsRoute
+  '/fleet': typeof FleetRoute
+  '/helicopter': typeof HelicopterRoute
+  '/routes/$slug': typeof RoutesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +77,38 @@ export interface FileRoutesById {
   '/bespoke': typeof BespokeRoute
   '/destinations': typeof DestinationsRoute
   '/empty-legs': typeof EmptyLegsRoute
+  '/fleet': typeof FleetRoute
+  '/helicopter': typeof HelicopterRoute
+  '/routes/$slug': typeof RoutesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bespoke' | '/destinations' | '/empty-legs'
+  fullPaths:
+    | '/'
+    | '/bespoke'
+    | '/destinations'
+    | '/empty-legs'
+    | '/fleet'
+    | '/helicopter'
+    | '/routes/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bespoke' | '/destinations' | '/empty-legs'
-  id: '__root__' | '/' | '/bespoke' | '/destinations' | '/empty-legs'
+  to:
+    | '/'
+    | '/bespoke'
+    | '/destinations'
+    | '/empty-legs'
+    | '/fleet'
+    | '/helicopter'
+    | '/routes/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/bespoke'
+    | '/destinations'
+    | '/empty-legs'
+    | '/fleet'
+    | '/helicopter'
+    | '/routes/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +116,27 @@ export interface RootRouteChildren {
   BespokeRoute: typeof BespokeRoute
   DestinationsRoute: typeof DestinationsRoute
   EmptyLegsRoute: typeof EmptyLegsRoute
+  FleetRoute: typeof FleetRoute
+  HelicopterRoute: typeof HelicopterRoute
+  RoutesSlugRoute: typeof RoutesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/helicopter': {
+      id: '/helicopter'
+      path: '/helicopter'
+      fullPath: '/helicopter'
+      preLoaderRoute: typeof HelicopterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fleet': {
+      id: '/fleet'
+      path: '/fleet'
+      fullPath: '/fleet'
+      preLoaderRoute: typeof FleetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/empty-legs': {
       id: '/empty-legs'
       path: '/empty-legs'
@@ -99,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/routes/$slug': {
+      id: '/routes/$slug'
+      path: '/routes/$slug'
+      fullPath: '/routes/$slug'
+      preLoaderRoute: typeof RoutesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,7 +180,20 @@ const rootRouteChildren: RootRouteChildren = {
   BespokeRoute: BespokeRoute,
   DestinationsRoute: DestinationsRoute,
   EmptyLegsRoute: EmptyLegsRoute,
+  FleetRoute: FleetRoute,
+  HelicopterRoute: HelicopterRoute,
+  RoutesSlugRoute: RoutesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

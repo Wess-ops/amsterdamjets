@@ -2,11 +2,13 @@ import { Link } from "@tanstack/react-router";
 
 const segments = [
   { to: "/empty-legs", label: "Empty Legs" },
-  { to: "/", label: "Bespoke Charter" },
-  { to: "/destinations", label: "Helicopter" },
+  { to: "/bespoke", label: "Bespoke Charter" },
+  { to: "/helicopter", label: "Helicopter" },
 ] as const;
 
-export function SegmentedNav({ active }: { active: "/empty-legs" | "/" | "/destinations" }) {
+export type SegmentPath = (typeof segments)[number]["to"];
+
+export function SegmentedNav({ active }: { active: SegmentPath }) {
   return (
     <div className="bg-surface-container-low rounded-full p-2 inline-flex border border-outline-variant/20">
       {segments.map((s) => {

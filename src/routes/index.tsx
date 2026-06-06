@@ -20,7 +20,7 @@ function HomePage() {
       <main className="flex-grow">
         <section className="pt-24 pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center flex flex-col items-center">
           <div className="mb-16">
-            <SegmentedNav active="/" />
+            <SegmentedNav active="/bespoke" />
           </div>
           <h1 className="text-display-lg-mobile md:text-display-lg text-on-surface mb-6 max-w-4xl mx-auto">
             Charter any jet,<br />anywhere.
