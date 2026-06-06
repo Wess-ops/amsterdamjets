@@ -64,7 +64,7 @@ function RouteDetail() {
         <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 grid grid-cols-1 lg:grid-cols-3 gap-gutter">
           <article className="lg:col-span-2 flex flex-col gap-6">
             <p className="text-body-lg text-on-surface-variant">{loc.tagline}</p>
-            {loc.body.map((p, i) => (
+            {loc.body.map((p: string, i: number) => (
               <p key={i} className="text-body-lg text-on-surface">
                 {p}
               </p>
@@ -80,7 +80,7 @@ function RouteDetail() {
           <aside className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 h-fit">
             <h3 className="text-label-bold uppercase text-on-surface-variant mb-3">Preferred airports</h3>
             <ul className="mb-6 space-y-1">
-              {loc.airports.map((a) => (
+              {loc.airports.map((a: string) => (
                 <li key={a} className="text-body-md text-on-surface">
                   {a}
                 </li>
