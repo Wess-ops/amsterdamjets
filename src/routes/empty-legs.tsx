@@ -1,7 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SegmentedNav } from "@/components/SegmentedNav";
+import { locations } from "@/lib/locations";
 
 export const Route = createFileRoute("/empty-legs")({
   head: () => ({
@@ -78,11 +79,11 @@ function EmptyLegsPage() {
                     <span className="bg-surface-container px-3 py-1 rounded-full text-[12px] font-bold tracking-wider text-primary uppercase inline-block mb-4">
                       Empty Leg
                     </span>
-                    <h3 className="text-headline-md text-on-surface mb-1">{l.from}</h3>
+                    <CityHeading name={l.from} />
                     <span className="material-symbols-outlined text-on-surface-variant mb-1 block">
                       arrow_downward
                     </span>
-                    <h3 className="text-headline-md text-on-surface">{l.to}</h3>
+                    <CityHeading name={l.to} />
                   </div>
                   <div className="text-body-md text-on-surface-variant mb-8 flex-grow">
                     <p>{l.meta}</p>
@@ -94,9 +95,12 @@ function EmptyLegsPage() {
                       <p className="text-body-md text-on-surface-variant mt-1">{l.detail}</p>
                     </div>
                   </div>
-                  <button className="w-full bg-primary text-on-primary py-4 rounded-lg text-label-bold hover:bg-primary-container transition-colors flex items-center justify-center gap-2">
+                  <Link
+                    to="/bespoke"
+                    className="w-full bg-primary text-on-primary py-4 rounded-lg text-label-bold hover:bg-primary-container transition-colors flex items-center justify-center gap-2"
+                  >
                     Book Now <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                  </button>
+                  </Link>
                 </div>
               </article>
             ))}
@@ -106,4 +110,22 @@ function EmptyLegsPage() {
       <SiteFooter />
     </div>
   );
+}
+
+function CityHeading({ name }: { name: string }) {
+  const slug = locations.find(
+    (l) => l.name.toLowerCase() === name.toLowerCase(),
+  )?.slug;
+  if (slug) {
+    return (
+      <Link
+        to="/routes/$slug"
+        params={{ slug }}
+        className="text-headline-md text-on-surface hover:text-primary transition-colors block"
+      >
+        {name}
+      </Link>
+    );
+  }
+  return <h3 className="text-headline-md text-on-surface">{name}</h3>;
 }

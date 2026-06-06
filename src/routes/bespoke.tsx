@@ -20,6 +20,11 @@ const services = [
   "Traveling with Pets",
 ];
 
+const paxOptions = [
+  ...Array.from({ length: 20 }, (_, i) => `${i + 1} Passenger${i === 0 ? "" : "s"}`),
+  "20+ Passengers",
+];
+
 function BespokePage() {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   return (
@@ -28,7 +33,7 @@ function BespokePage() {
       <main className="flex-grow w-full pb-section-gap">
         <section className="w-full pt-20 pb-10 flex flex-col items-center justify-center text-center px-margin-mobile">
           <div className="mb-12">
-            <SegmentedNav active="/" />
+            <SegmentedNav active="/bespoke" />
           </div>
           <h1 className="text-display-lg-mobile md:text-display-lg text-on-surface max-w-4xl mx-auto mb-6">
             Design your journey.
@@ -42,11 +47,7 @@ function BespokePage() {
         <section className="max-w-[800px] mx-auto px-margin-mobile md:px-0">
           <form className="w-full flex flex-col gap-12" onSubmit={(e) => e.preventDefault()}>
             <FormCard title="Routing">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter relative">
-                <div className="hidden md:block absolute top-1/2 left-[calc(50%-1.5rem)] w-12 h-px bg-outline-variant/50 -translate-y-1/2 z-0" />
-                <div className="hidden md:flex absolute top-1/2 left-[calc(50%-12px)] w-6 h-6 bg-surface-container-lowest border border-outline-variant/50 rounded-full items-center justify-center z-10 -translate-y-1/2">
-                  <span className="material-symbols-outlined text-[14px] text-on-surface-variant">arrow_forward</span>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
                 <Field icon="flight_takeoff" label="From">
                   <input type="text" placeholder="City or Airport Code" className={inputCls} />
                 </Field>
@@ -74,12 +75,10 @@ function BespokePage() {
             <FormCard title="Details & Requirements">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
                 <Field icon="group" label="Passengers">
-                  <select className={`${inputCls} cursor-pointer`}>
-                    <option>1-4 Passengers (Light Jet)</option>
-                    <option>5-8 Passengers (Midsize Jet)</option>
-                    <option>9-14 Passengers (Heavy Jet)</option>
-                    <option>15+ Passengers (Airliner)</option>
-                    <option>Not sure yet</option>
+                  <select className={`${inputCls} cursor-pointer`} defaultValue="4 Passengers">
+                    {paxOptions.map((p) => (
+                      <option key={p}>{p}</option>
+                    ))}
                   </select>
                 </Field>
               </div>
@@ -128,6 +127,119 @@ function BespokePage() {
               <p className="text-sm text-on-surface-variant/70">Response within the hour · No obligation</p>
             </div>
           </form>
+        </section>
+
+        {/* What is bespoke charter */}
+        <section className="max-w-[900px] mx-auto px-margin-mobile md:px-0 mt-section-gap">
+          <p className="text-label-bold uppercase text-primary mb-3">What is a bespoke charter?</p>
+          <h2 className="text-headline-md md:text-display-lg-mobile text-on-surface mb-6">
+            One brief. The right aircraft. Every time.
+          </h2>
+          <div className="grid md:grid-cols-2 gap-gutter text-body-lg text-on-surface-variant">
+            <p>
+              A bespoke charter means we build your flight from a blank sheet. You tell us where,
+              when, and with whom — we source the optimal aircraft from a global fleet of more than
+              10,000 jets, handle slots, permits, catering and ground transport.
+            </p>
+            <p>
+              You are never tied to a single operator, fleet or hub. That's why bespoke is the most
+              cost-efficient way to fly privately for anything outside a standard return: one-ways,
+              multi-leg trips, time-critical missions, or oversized groups.
+            </p>
+          </div>
+          <ul className="grid md:grid-cols-3 gap-gutter mt-10">
+            {[
+              { i: "verified", t: "Operator-agnostic", b: "We pick the best aircraft for your trip, not the one we happen to own." },
+              { i: "savings", t: "Better pricing", b: "Live access to empty-leg and repositioning rates across Europe and beyond." },
+              { i: "support_agent", t: "One point of contact", b: "A dedicated flight coordinator from quote to landing — 24/7." },
+            ].map((x) => (
+              <li key={x.t} className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6">
+                <span className="material-symbols-outlined text-primary mb-3 block">{x.i}</span>
+                <h3 className="text-headline-md text-on-surface mb-2" style={{ fontSize: 20, lineHeight: "28px" }}>
+                  {x.t}
+                </h3>
+                <p className="text-body-md text-on-surface-variant">{x.b}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Concierges — black section */}
+        <section className="px-margin-mobile md:px-margin-desktop mt-section-gap">
+          <div className="max-w-container-max mx-auto bg-on-surface text-on-primary rounded-3xl p-10 md:p-16 grid md:grid-cols-2 gap-10 items-center">
+            <div>
+              <p className="text-label-bold uppercase text-on-primary/60 mb-3">For Concierges</p>
+              <h2 className="text-headline-md md:text-display-lg-mobile mb-6">
+                We love working with concierges.
+              </h2>
+              <p className="text-body-lg opacity-80 mb-6">
+                Lifestyle managers, family offices and 5-star hotel concierges trust us to deliver
+                charter requests on tight timelines, with discretion and clean commission terms.
+              </p>
+              <ul className="space-y-3 text-body-md opacity-90">
+                {[
+                  "Dedicated concierge line — quotes back inside the hour",
+                  "Transparent commission on every booking",
+                  "White-label quote sheets and itineraries",
+                  "Multi-leg, multi-aircraft and group movements handled end-to-end",
+                ].map((t) => (
+                  <li key={t} className="flex gap-3">
+                    <span className="material-symbols-outlined text-on-primary/60">check</span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-on-primary/5 border border-on-primary/10 rounded-2xl p-8">
+              <h3 className="text-headline-md mb-4" style={{ fontSize: 22, lineHeight: "30px" }}>
+                Open a concierge account
+              </h3>
+              <p className="text-body-md opacity-80 mb-6">
+                Get a dedicated coordinator and preferential terms for your clients' charter
+                requests.
+              </p>
+              <a
+                href="mailto:concierge@amsterdamjets.com"
+                className="bg-on-primary text-on-surface px-6 py-3 rounded-full text-label-bold inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
+              >
+                concierge@amsterdamjets.com
+                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Corporate flyers */}
+        <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-section-gap">
+          <div className="grid md:grid-cols-2 gap-gutter items-start">
+            <div>
+              <p className="text-label-bold uppercase text-primary mb-3">Corporate flyers</p>
+              <h2 className="text-headline-md md:text-display-lg-mobile text-on-surface mb-6">
+                Built for the way executives actually fly.
+              </h2>
+              <p className="text-body-lg text-on-surface-variant mb-6">
+                Roadshows, M&A meetings, board offsites, plant visits — we move executive teams and
+                deal rooms across Europe and the Atlantic on schedule, with a single invoice and
+                full reporting.
+              </p>
+            </div>
+            <ul className="grid sm:grid-cols-2 gap-gutter">
+              {[
+                { i: "trending_up", t: "Roadshow programs", b: "Multi-city, multi-day investor and sales tours coordinated end-to-end." },
+                { i: "policy", t: "Travel policy fit", b: "Documented sourcing, safety standards and audit-ready invoicing." },
+                { i: "groups", t: "Board & team movements", b: "Up to 19 seats per aircraft, with secure meeting space at altitude." },
+                { i: "handshake", t: "M&A discretion", b: "Code-named trips, NDA-friendly crews, no public flight tracking." },
+              ].map((x) => (
+                <li key={x.t} className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6">
+                  <span className="material-symbols-outlined text-primary mb-3 block">{x.i}</span>
+                  <h3 className="text-on-surface mb-2 font-bold" style={{ fontSize: 18 }}>
+                    {x.t}
+                  </h3>
+                  <p className="text-body-md text-on-surface-variant">{x.b}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       </main>
       <SiteFooter />
