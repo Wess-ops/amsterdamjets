@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 export function SiteFooter() {
   return (
     <footer className="bg-surface-container-low border-t border-outline-variant/20 mt-auto w-full">
@@ -8,21 +10,25 @@ export function SiteFooter() {
             <span className="text-lg font-bold text-on-surface">Amsterdam Jets</span>
           </div>
           <p className="text-body-md text-on-surface-variant max-w-sm">
-            © 2024 Amsterdam Jets. All rights reserved. Private aviation, refined.
+            © 2026 Amsterdam Jets. All rights reserved. Private aviation, refined.
           </p>
         </div>
         <div className="flex flex-wrap gap-x-8 gap-y-4 md:justify-end items-start pt-2">
-          {["Privacy Policy", "Terms of Service", "Contact", "Fleet Overview", "Empty Leg FAQ"].map(
-            (l) => (
-              <a
-                key={l}
-                href="#"
-                className="text-on-surface-variant hover:text-primary transition-colors text-body-md underline-offset-4 hover:underline"
-              >
-                {l}
-              </a>
-            ),
-          )}
+          <Link to="/empty-legs" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
+            Empty Legs
+          </Link>
+          <Link to="/bespoke" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
+            Bespoke Charter
+          </Link>
+          <Link to="/helicopter" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
+            Helicopter
+          </Link>
+          <Link to="/fleet" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
+            Destinations
+          </Link>
+          <a href="#" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
+            Contact
+          </a>
         </div>
       </div>
     </footer>
