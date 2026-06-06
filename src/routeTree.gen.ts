@@ -9,8 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as EmptyLegsRouteImport } from './routes/empty-legs'
+import { Route as DestinationsRouteImport } from './routes/destinations'
+import { Route as BespokeRouteImport } from './routes/bespoke'
 import { Route as IndexRouteImport } from './routes/index'
 
+const EmptyLegsRoute = EmptyLegsRouteImport.update({
+  id: '/empty-legs',
+  path: '/empty-legs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DestinationsRoute = DestinationsRouteImport.update({
+  id: '/destinations',
+  path: '/destinations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BespokeRoute = BespokeRouteImport.update({
+  id: '/bespoke',
+  path: '/bespoke',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +37,61 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bespoke': typeof BespokeRoute
+  '/destinations': typeof DestinationsRoute
+  '/empty-legs': typeof EmptyLegsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bespoke': typeof BespokeRoute
+  '/destinations': typeof DestinationsRoute
+  '/empty-legs': typeof EmptyLegsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bespoke': typeof BespokeRoute
+  '/destinations': typeof DestinationsRoute
+  '/empty-legs': typeof EmptyLegsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/bespoke' | '/destinations' | '/empty-legs'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/bespoke' | '/destinations' | '/empty-legs'
+  id: '__root__' | '/' | '/bespoke' | '/destinations' | '/empty-legs'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BespokeRoute: typeof BespokeRoute
+  DestinationsRoute: typeof DestinationsRoute
+  EmptyLegsRoute: typeof EmptyLegsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/empty-legs': {
+      id: '/empty-legs'
+      path: '/empty-legs'
+      fullPath: '/empty-legs'
+      preLoaderRoute: typeof EmptyLegsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/destinations': {
+      id: '/destinations'
+      path: '/destinations'
+      fullPath: '/destinations'
+      preLoaderRoute: typeof DestinationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bespoke': {
+      id: '/bespoke'
+      path: '/bespoke'
+      fullPath: '/bespoke'
+      preLoaderRoute: typeof BespokeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,17 +104,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BespokeRoute: BespokeRoute,
+  DestinationsRoute: DestinationsRoute,
+  EmptyLegsRoute: EmptyLegsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
