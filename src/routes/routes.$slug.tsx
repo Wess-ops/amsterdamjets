@@ -71,7 +71,7 @@ function RouteDetail() {
             ))}
             <Link
               to="/bespoke"
-              className="self-start bg-primary text-on-primary px-8 py-4 rounded-full text-label-bold inline-flex items-center gap-2 mt-4 hover:bg-primary-container transition-colors"
+              className="self-start animate-cta-glow bg-primary text-on-primary px-8 py-4 rounded-full text-label-bold inline-flex items-center gap-2 mt-4 hover:bg-primary-container transition-colors"
             >
               Request a charter to {loc.name}
               <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -89,6 +89,64 @@ function RouteDetail() {
             <h3 className="text-label-bold uppercase text-on-surface-variant mb-3">When to fly</h3>
             <p className="text-body-md text-on-surface">{loc.seasons}</p>
           </aside>
+        </section>
+
+        {/* Route stats strip */}
+        <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+            {[
+              { i: "schedule", t: "Flight time", v: loc.flightTime },
+              { i: "payments", t: "Indicative pricing", v: loc.priceFrom },
+              { i: "event_available", t: "When to book", v: loc.bookWindow },
+            ].map((x) => (
+              <div
+                key={x.t}
+                className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6"
+              >
+                <span className="material-symbols-outlined text-primary mb-3 block">{x.i}</span>
+                <p className="text-label-bold uppercase text-on-surface-variant mb-1">{x.t}</p>
+                <p className="text-body-lg text-on-surface font-semibold">{x.v}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Route blog post */}
+        <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
+          <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl overflow-hidden grid md:grid-cols-2">
+            <div className="relative min-h-[280px] md:min-h-[420px]">
+              <img alt={loc.name} src={loc.img} className="absolute inset-0 w-full h-full object-cover" />
+            </div>
+            <div className="p-8 md:p-12 flex flex-col justify-center">
+              <p className="text-label-bold uppercase text-primary mb-3">
+                Route guide · {loc.blog.readMins} min read
+              </p>
+              <h2 className="text-headline-md text-on-surface mb-4">{loc.blog.title}</h2>
+              <p className="text-body-lg text-on-surface-variant mb-6">{loc.blog.intro}</p>
+              <a href="#guide" className="text-primary text-label-bold inline-flex items-center gap-2">
+                Read guide
+                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+
+          <article id="guide" className="mt-16 max-w-3xl mx-auto flex flex-col gap-10">
+            {loc.blog.sections.map((s: { h: string; p: string }) => (
+              <div key={s.h}>
+                <h3 className="text-headline-md text-on-surface mb-3" style={{ fontSize: 24, lineHeight: "32px" }}>
+                  {s.h}
+                </h3>
+                <p className="text-body-lg text-on-surface-variant">{s.p}</p>
+              </div>
+            ))}
+            <Link
+              to="/bespoke"
+              className="self-start animate-cta-glow bg-primary text-on-primary px-8 py-4 rounded-full text-label-bold inline-flex items-center gap-2 mt-4 hover:bg-primary-container transition-colors"
+            >
+              Request your charter
+              <span className="material-symbols-outlined text-sm">arrow_forward</span>
+            </Link>
+          </article>
         </section>
       </main>
       <SiteFooter />

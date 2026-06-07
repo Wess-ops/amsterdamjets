@@ -18,6 +18,8 @@ const services = [
   "Ground Transportation (Chauffeur to/from aircraft)",
   "Bespoke In-flight Catering",
   "Traveling with Pets",
+  "Stay (Villa or Hotel booking)",
+  "Leisure (Yachts, private wine tours, experiences)",
 ];
 
 const paxOptions = [
@@ -31,10 +33,10 @@ function BespokePage() {
     <div className="min-h-screen flex flex-col">
       <SiteNav />
       <main className="flex-grow w-full pb-section-gap">
-        <section className="w-full pt-20 pb-10 flex flex-col items-center justify-center text-center px-margin-mobile">
-          <div className="mb-12">
-            <SegmentedNav active="/bespoke" />
-          </div>
+        <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 flex justify-center">
+          <SegmentedNav active="/bespoke" />
+        </section>
+        <section className="w-full pb-10 flex flex-col items-center justify-center text-center px-margin-mobile">
           <h1 className="text-display-lg-mobile md:text-display-lg text-on-surface max-w-4xl mx-auto mb-6">
             Design your journey.
           </h1>
@@ -119,7 +121,7 @@ function BespokePage() {
             <div className="flex flex-col items-center gap-4 pt-8">
               <button
                 type="submit"
-                className="bg-primary text-on-primary w-full md:w-auto px-12 py-4 rounded-full text-label-bold text-lg hover:bg-primary-container transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20"
+                className="animate-cta-glow bg-primary text-on-primary w-full md:w-auto px-12 py-4 rounded-full text-label-bold text-lg hover:bg-primary-container transition-colors flex items-center justify-center gap-2"
               >
                 Request Your Charter
                 <span className="material-symbols-outlined">arrow_forward</span>
