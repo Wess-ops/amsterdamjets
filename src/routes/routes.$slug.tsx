@@ -131,7 +131,7 @@ function RouteDetail() {
           </div>
 
           <article id="guide" className="mt-16 max-w-3xl mx-auto flex flex-col gap-10">
-            {loc.blog.sections.map((s) => (
+            {loc.blog.sections.map((s: { h: string; p: string }) => (
               <div key={s.h}>
                 <h3 className="text-headline-md text-on-surface mb-3" style={{ fontSize: 24, lineHeight: "32px" }}>
                   {s.h}
