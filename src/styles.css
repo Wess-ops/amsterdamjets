@@ -138,4 +138,20 @@
   .hide-scrollbar::-webkit-scrollbar { display: none; }
   .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   .card-gradient { background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%); }
+
+  @keyframes cta-glow {
+    0%, 100% {
+      box-shadow:
+        0 0 0 0 color-mix(in oklab, var(--color-primary) 55%, transparent),
+        0 12px 30px -8px color-mix(in oklab, var(--color-primary) 45%, transparent);
+    }
+    50% {
+      box-shadow:
+        0 0 0 14px color-mix(in oklab, var(--color-primary) 0%, transparent),
+        0 18px 50px -8px color-mix(in oklab, var(--color-primary) 70%, transparent);
+    }
+  }
+  .animate-cta-glow {
+    animation: cta-glow 2.2s ease-in-out infinite;
+  }
 }
