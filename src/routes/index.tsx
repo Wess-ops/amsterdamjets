@@ -97,6 +97,46 @@ function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Image mosaic */}
+        <section className="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="md:row-span-2 aspect-[3/4] md:aspect-auto rounded-3xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1583416750470-965b2707b355?w=1200&auto=format&fit=crop" alt="Cabin interior" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div className="aspect-square rounded-3xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=900&auto=format&fit=crop" alt="Jet on tarmac" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div className="aspect-square rounded-3xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1569629743817-70d8db6c323b?w=900&auto=format&fit=crop" alt="Approach" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div className="aspect-square rounded-3xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=900&auto=format&fit=crop" alt="Above the clouds" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div className="aspect-square rounded-3xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1542296332-2e4473faf563?w=900&auto=format&fit=crop" alt="Helicopter" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            </div>
+          </div>
+        </section>
+
+        {/* Closing CTA */}
+        <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pb-section-gap">
+          <div className="bg-on-surface text-on-primary rounded-3xl p-10 md:p-16 text-center">
+            <h2 className="text-headline-md md:text-display-lg-mobile mb-4">Wheels up, today.</h2>
+            <p className="text-body-lg opacity-80 max-w-xl mx-auto mb-8">
+              Tell us where and when. We'll have aircraft options back within the hour.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link to="/bespoke" className="bg-on-primary text-on-surface px-8 py-4 rounded-full text-label-bold inline-flex items-center gap-2 hover:opacity-90 transition-opacity">
+                Request Your Charter
+                <span className="material-symbols-outlined text-sm">arrow_forward</span>
+              </Link>
+              <Link to="/contact" className="border border-on-primary/30 text-on-primary px-8 py-4 rounded-full text-label-bold inline-flex items-center gap-2 hover:bg-on-primary/10 transition-colors">
+                Get in touch
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </div>

@@ -9,13 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as InstagramRouteImport } from './routes/instagram'
 import { Route as HelicopterRouteImport } from './routes/helicopter'
 import { Route as FleetRouteImport } from './routes/fleet'
 import { Route as EmptyLegsRouteImport } from './routes/empty-legs'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BespokeRouteImport } from './routes/bespoke'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RoutesSlugRouteImport } from './routes/routes.$slug'
 
+const InstagramRoute = InstagramRouteImport.update({
+  id: '/instagram',
+  path: '/instagram',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HelicopterRoute = HelicopterRouteImport.update({
   id: '/helicopter',
   path: '/helicopter',
@@ -29,6 +36,11 @@ const FleetRoute = FleetRouteImport.update({
 const EmptyLegsRoute = EmptyLegsRouteImport.update({
   id: '/empty-legs',
   path: '/empty-legs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BespokeRoute = BespokeRouteImport.update({
@@ -50,26 +62,32 @@ const RoutesSlugRoute = RoutesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bespoke': typeof BespokeRoute
+  '/contact': typeof ContactRoute
   '/empty-legs': typeof EmptyLegsRoute
   '/fleet': typeof FleetRoute
   '/helicopter': typeof HelicopterRoute
+  '/instagram': typeof InstagramRoute
   '/routes/$slug': typeof RoutesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bespoke': typeof BespokeRoute
+  '/contact': typeof ContactRoute
   '/empty-legs': typeof EmptyLegsRoute
   '/fleet': typeof FleetRoute
   '/helicopter': typeof HelicopterRoute
+  '/instagram': typeof InstagramRoute
   '/routes/$slug': typeof RoutesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/bespoke': typeof BespokeRoute
+  '/contact': typeof ContactRoute
   '/empty-legs': typeof EmptyLegsRoute
   '/fleet': typeof FleetRoute
   '/helicopter': typeof HelicopterRoute
+  '/instagram': typeof InstagramRoute
   '/routes/$slug': typeof RoutesSlugRoute
 }
 export interface FileRouteTypes {
@@ -77,39 +95,54 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/bespoke'
+    | '/contact'
     | '/empty-legs'
     | '/fleet'
     | '/helicopter'
+    | '/instagram'
     | '/routes/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/bespoke'
+    | '/contact'
     | '/empty-legs'
     | '/fleet'
     | '/helicopter'
+    | '/instagram'
     | '/routes/$slug'
   id:
     | '__root__'
     | '/'
     | '/bespoke'
+    | '/contact'
     | '/empty-legs'
     | '/fleet'
     | '/helicopter'
+    | '/instagram'
     | '/routes/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BespokeRoute: typeof BespokeRoute
+  ContactRoute: typeof ContactRoute
   EmptyLegsRoute: typeof EmptyLegsRoute
   FleetRoute: typeof FleetRoute
   HelicopterRoute: typeof HelicopterRoute
+  InstagramRoute: typeof InstagramRoute
   RoutesSlugRoute: typeof RoutesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/instagram': {
+      id: '/instagram'
+      path: '/instagram'
+      fullPath: '/instagram'
+      preLoaderRoute: typeof InstagramRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/helicopter': {
       id: '/helicopter'
       path: '/helicopter'
@@ -129,6 +162,13 @@ declare module '@tanstack/react-router' {
       path: '/empty-legs'
       fullPath: '/empty-legs'
       preLoaderRoute: typeof EmptyLegsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bespoke': {
@@ -158,9 +198,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BespokeRoute: BespokeRoute,
+  ContactRoute: ContactRoute,
   EmptyLegsRoute: EmptyLegsRoute,
   FleetRoute: FleetRoute,
   HelicopterRoute: HelicopterRoute,
+  InstagramRoute: InstagramRoute,
   RoutesSlugRoute: RoutesSlugRoute,
 }
 export const routeTree = rootRouteImport
