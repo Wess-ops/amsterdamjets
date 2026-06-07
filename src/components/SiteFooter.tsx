@@ -26,9 +26,12 @@ export function SiteFooter() {
           <Link to="/fleet" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
             Destinations
           </Link>
-          <a href="#" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
+          <Link to="/instagram" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
+            Instagram
+          </Link>
+          <Link to="/contact" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
             Contact
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
