@@ -3,6 +3,7 @@ import { useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SegmentedNav } from "@/components/SegmentedNav";
+import jetInteriorAsset from "@/assets/jet-interior-hero.jpg.asset.json";
 
 export const Route = createFileRoute("/bespoke")({
   head: () => ({
@@ -33,18 +34,29 @@ function BespokePage() {
     <div className="min-h-screen flex flex-col">
       <SiteNav />
       <main className="flex-grow w-full pb-section-gap">
-        <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 flex justify-center">
-          <SegmentedNav active="/bespoke" />
-        </section>
-        <section className="w-full pb-10 flex flex-col items-center justify-center text-center px-margin-mobile">
-          <h1 className="text-display-lg-mobile md:text-display-lg text-on-surface max-w-4xl mx-auto mb-6">
-            Design your journey.
-          </h1>
-          <p className="text-body-lg text-on-surface-variant max-w-2xl mx-auto">
-            Specify your routing, schedule, and preferences. Our operations team will curate the
-            optimal aircraft for your mission.
-          </p>
-        </section>
+        <div className="relative overflow-hidden">
+          <img
+            src={jetInteriorAsset.url}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-15"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/70 via-background/85 to-background" />
+          <div className="relative">
+            <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 flex justify-center">
+              <SegmentedNav active="/bespoke" />
+            </section>
+            <section className="w-full pb-10 flex flex-col items-center justify-center text-center px-margin-mobile">
+              <h1 className="text-display-lg-mobile md:text-display-lg text-on-surface max-w-4xl mx-auto mb-6">
+                Design your journey.
+              </h1>
+              <p className="text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                Specify your routing, schedule, and preferences. Our operations team will curate the
+                optimal aircraft for your mission.
+              </p>
+            </section>
+          </div>
+        </div>
 
         <section className="max-w-[800px] mx-auto px-margin-mobile md:px-0">
           <form className="w-full flex flex-col gap-12" onSubmit={(e) => e.preventDefault()}>
