@@ -3,21 +3,104 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { locations } from "@/lib/locations";
 
+const SITE = "https://amsterdamjets.lovable.app";
+
+function buildFaq(loc: (typeof locations)[number]) {
+  return [
+    {
+      q: `How long is a private jet flight from Amsterdam to ${loc.name}?`,
+      a: `${loc.flightTime}. Departures are typically from Amsterdam Schiphol (AMS) or Rotterdam The Hague (RTM).`,
+    },
+    {
+      q: `Which airports do you use for ${loc.name}?`,
+      a: `We use ${loc.airports.join(", ")}. We'll recommend the best option for your itinerary and timing.`,
+    },
+    {
+      q: `How much does a private jet from Amsterdam to ${loc.name} cost?`,
+      a: `${loc.priceFrom}. Empty-leg flights and shoulder-season pricing can be significantly lower — ask us for live availability.`,
+    },
+    {
+      q: `How far in advance should I book?`,
+      a: `${loc.bookWindow}. For high-demand events and holidays we recommend reserving earlier.`,
+    },
+  ];
+}
+
 export const Route = createFileRoute("/routes/$slug")({
   loader: ({ params }) => {
     const loc = locations.find((l) => l.slug === params.slug);
     if (!loc) throw notFound();
     return loc;
   },
-  head: ({ loaderData }) =>
+  head: ({ params, loaderData }) =>
     loaderData
       ? {
           meta: [
-            { title: `Private Jet to ${loaderData.name} — Amsterdam Jets` },
-            { name: "description", content: loaderData.tagline },
-            { property: "og:title", content: `Private Jet to ${loaderData.name}` },
-            { property: "og:description", content: loaderData.tagline },
+            {
+              title: `Private Jet Amsterdam to ${loaderData.name} — Charter from Schiphol | Amsterdam Jets`,
+            },
+            {
+              name: "description",
+              content: `Private jet charter Amsterdam to ${loaderData.name}. ${loaderData.flightTime}. ${loaderData.priceFrom}. Quotes within the hour from Amsterdam Schiphol.`,
+            },
+            {
+              property: "og:title",
+              content: `Private Jet Amsterdam to ${loaderData.name}`,
+            },
+            {
+              property: "og:description",
+              content: `${loaderData.flightTime}. ${loaderData.priceFrom}. Charter direct from Amsterdam Schiphol with Amsterdam Jets.`,
+            },
+            { property: "og:type", content: "article" },
             { property: "og:image", content: loaderData.img },
+            { property: "og:url", content: `${SITE}/routes/${params.slug}` },
+            { name: "twitter:card", content: "summary_large_image" },
+            { name: "twitter:image", content: loaderData.img },
+          ],
+          links: [{ rel: "canonical", href: `${SITE}/routes/${params.slug}` }],
+          scripts: [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Article",
+                headline: `Private Jet Amsterdam to ${loaderData.name}`,
+                description: loaderData.blog.intro,
+                image: loaderData.img,
+                author: { "@type": "Organization", name: "Amsterdam Jets" },
+                publisher: { "@type": "Organization", name: "Amsterdam Jets" },
+                mainEntityOfPage: `${SITE}/routes/${params.slug}`,
+              }),
+            },
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+                  { "@type": "ListItem", position: 2, name: "Destinations", item: `${SITE}/fleet` },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: `Amsterdam to ${loaderData.name}`,
+                    item: `${SITE}/routes/${params.slug}`,
+                  },
+                ],
+              }),
+            },
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: buildFaq(loaderData).map((f) => ({
+                  "@type": "Question",
+                  name: f.q,
+                  acceptedAnswer: { "@type": "Answer", text: f.a },
+                })),
+              }),
+            },
           ],
         }
       : {},
@@ -41,6 +124,7 @@ export const Route = createFileRoute("/routes/$slug")({
 
 function RouteDetail() {
   const loc = Route.useLoaderData();
+  const faq = buildFaq(loc);
   return (
     <div className="min-h-screen flex flex-col">
       <SiteNav />
@@ -57,7 +141,9 @@ function RouteDetail() {
               All destinations
             </Link>
             <p className="text-label-bold text-on-primary/80 uppercase mb-2">{loc.region}</p>
-            <h1 className="text-display-lg-mobile md:text-display-lg text-on-primary">{loc.name}</h1>
+            <h1 className="text-display-lg-mobile md:text-display-lg text-on-primary">
+              Private jet Amsterdam to {loc.name}
+            </h1>
           </div>
         </section>
 
@@ -78,7 +164,7 @@ function RouteDetail() {
             </Link>
           </article>
           <aside className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 h-fit">
-            <h3 className="text-label-bold uppercase text-on-surface-variant mb-3">Preferred airports</h3>
+            <h2 className="text-label-bold uppercase text-on-surface-variant mb-3">Preferred airports</h2>
             <ul className="mb-6 space-y-1">
               {loc.airports.map((a: string) => (
                 <li key={a} className="text-body-md text-on-surface">
@@ -86,12 +172,11 @@ function RouteDetail() {
                 </li>
               ))}
             </ul>
-            <h3 className="text-label-bold uppercase text-on-surface-variant mb-3">When to fly</h3>
+            <h2 className="text-label-bold uppercase text-on-surface-variant mb-3">When to fly</h2>
             <p className="text-body-md text-on-surface">{loc.seasons}</p>
           </aside>
         </section>
 
-        {/* Route stats strip */}
         <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
             {[
@@ -111,7 +196,6 @@ function RouteDetail() {
           </div>
         </section>
 
-        {/* Route blog post */}
         <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
           <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-3xl overflow-hidden grid md:grid-cols-2">
             <div className="relative min-h-[280px] md:min-h-[420px]">
@@ -139,14 +223,34 @@ function RouteDetail() {
                 <p className="text-body-lg text-on-surface-variant">{s.p}</p>
               </div>
             ))}
+          </article>
+
+          {/* FAQ */}
+          <section className="mt-16 max-w-3xl mx-auto">
+            <h2 className="text-headline-md md:text-display-lg-mobile text-on-surface mb-8">
+              Amsterdam to {loc.name} — frequently asked
+            </h2>
+            <div className="flex flex-col gap-6">
+              {faq.map((f) => (
+                <div
+                  key={f.q}
+                  className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6"
+                >
+                  <h3 className="text-on-surface font-bold mb-2" style={{ fontSize: 18 }}>
+                    {f.q}
+                  </h3>
+                  <p className="text-body-md text-on-surface-variant">{f.a}</p>
+                </div>
+              ))}
+            </div>
             <Link
               to="/bespoke"
-              className="self-start animate-cta-glow bg-primary text-on-primary px-8 py-4 rounded-full text-label-bold inline-flex items-center gap-2 mt-4 hover:bg-primary-container transition-colors"
+              className="mt-10 animate-cta-glow bg-primary text-on-primary px-8 py-4 rounded-full text-label-bold inline-flex items-center gap-2 hover:bg-primary-container transition-colors"
             >
               Request your charter
               <span className="material-symbols-outlined text-sm">arrow_forward</span>
             </Link>
-          </article>
+          </section>
         </section>
       </main>
       <SiteFooter />

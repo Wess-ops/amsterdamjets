@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as InstagramRouteImport } from './routes/instagram'
 import { Route as HelicopterRouteImport } from './routes/helicopter'
 import { Route as FleetRouteImport } from './routes/fleet'
@@ -18,6 +19,11 @@ import { Route as BespokeRouteImport } from './routes/bespoke'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RoutesSlugRouteImport } from './routes/routes.$slug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InstagramRoute = InstagramRouteImport.update({
   id: '/instagram',
   path: '/instagram',
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/fleet': typeof FleetRoute
   '/helicopter': typeof HelicopterRoute
   '/instagram': typeof InstagramRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/routes/$slug': typeof RoutesSlugRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/fleet': typeof FleetRoute
   '/helicopter': typeof HelicopterRoute
   '/instagram': typeof InstagramRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/routes/$slug': typeof RoutesSlugRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/fleet': typeof FleetRoute
   '/helicopter': typeof HelicopterRoute
   '/instagram': typeof InstagramRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/routes/$slug': typeof RoutesSlugRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/fleet'
     | '/helicopter'
     | '/instagram'
+    | '/sitemap.xml'
     | '/routes/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/fleet'
     | '/helicopter'
     | '/instagram'
+    | '/sitemap.xml'
     | '/routes/$slug'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/fleet'
     | '/helicopter'
     | '/instagram'
+    | '/sitemap.xml'
     | '/routes/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -131,11 +143,19 @@ export interface RootRouteChildren {
   FleetRoute: typeof FleetRoute
   HelicopterRoute: typeof HelicopterRoute
   InstagramRoute: typeof InstagramRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   RoutesSlugRoute: typeof RoutesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/instagram': {
       id: '/instagram'
       path: '/instagram'
@@ -203,8 +223,19 @@ const rootRouteChildren: RootRouteChildren = {
   FleetRoute: FleetRoute,
   HelicopterRoute: HelicopterRoute,
   InstagramRoute: InstagramRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   RoutesSlugRoute: RoutesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
