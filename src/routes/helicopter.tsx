@@ -59,7 +59,7 @@ function HelicopterPage() {
           </p>
           <Link
             to="/bespoke"
-            className="bg-primary hover:bg-primary-container text-on-primary text-label-bold px-8 py-4 rounded-full inline-flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105"
+            className="animate-cta-glow bg-primary hover:bg-primary-container text-on-primary text-label-bold px-8 py-4 rounded-full inline-flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105"
           >
             Request a Helicopter
             <span className="material-symbols-outlined text-sm">arrow_forward</span>

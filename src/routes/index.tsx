@@ -2,13 +2,18 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SegmentedNav } from "@/components/SegmentedNav";
+import { locations } from "@/lib/locations";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Amsterdam Jets — Bespoke Charter" },
-      { name: "description", content: "Charter any jet, anywhere. No fleet limits. No fixed routes." },
+      { title: "Private Jet Charter from Amsterdam — Empty Legs, Bespoke & Helicopter | Amsterdam Jets" },
+      { name: "description", content: "Private jet charter from Amsterdam Schiphol to London, Paris, Ibiza, Mallorca, Dubai and beyond. Empty legs, bespoke charters and helicopter transfers — quotes within the hour." },
+      { property: "og:title", content: "Private Jet Charter from Amsterdam — Amsterdam Jets" },
+      { property: "og:description", content: "Charter any jet, anywhere. Empty legs, bespoke charters and helicopter transfers from Amsterdam Schiphol." },
+      { property: "og:url", content: "https://amsterdamjets.lovable.app/" },
     ],
+    links: [{ rel: "canonical", href: "https://amsterdamjets.lovable.app/" }],
   }),
   component: HomePage,
 });
@@ -31,7 +36,7 @@ function HomePage() {
           </p>
           <Link
             to="/bespoke"
-            className="bg-primary hover:bg-primary-container text-on-primary text-label-bold px-8 py-4 rounded-full inline-flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 mb-4"
+            className="animate-cta-glow bg-primary hover:bg-primary-container text-on-primary text-label-bold px-8 py-4 rounded-full inline-flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 mb-4"
           >
             Request Your Charter
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -119,6 +124,46 @@ function HomePage() {
           </div>
         </section>
 
+        {/* Popular routes from Amsterdam */}
+        <section className="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+          <div className="mb-10 text-center">
+            <p className="text-label-bold uppercase text-primary mb-3">Popular routes</p>
+            <h2 className="text-headline-md md:text-display-lg-mobile text-on-surface">
+              Private jet charter from Amsterdam
+            </h2>
+            <p className="text-body-lg text-on-surface-variant mt-4 max-w-2xl mx-auto">
+              Indicative pricing and flight times from Amsterdam Schiphol (AMS) to the destinations
+              we fly most.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+            {locations.map((l) => (
+              <Link
+                key={l.slug}
+                to="/routes/$slug"
+                params={{ slug: l.slug }}
+                className="group bg-surface-container-lowest border border-outline-variant/30 rounded-2xl overflow-hidden flex flex-col hover:border-primary/40 transition-colors"
+              >
+                <div className="h-44 overflow-hidden">
+                  <img
+                    src={l.img}
+                    alt={`Private jet Amsterdam to ${l.name}`}
+                    loading="lazy"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <div className="p-6 flex flex-col gap-2">
+                  <h3 className="text-headline-md text-on-surface" style={{ fontSize: 20, lineHeight: "26px" }}>
+                    Amsterdam to {l.name}
+                  </h3>
+                  <p className="text-body-md text-on-surface-variant">{l.flightTime}</p>
+                  <p className="text-body-md text-on-surface font-semibold">{l.priceFrom}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* Closing CTA */}
         <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pb-section-gap">
           <div className="bg-on-surface text-on-primary rounded-3xl p-10 md:p-16 text-center">
@@ -127,7 +172,7 @@ function HomePage() {
               Tell us where and when. We'll have aircraft options back within the hour.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <Link to="/bespoke" className="bg-on-primary text-on-surface px-8 py-4 rounded-full text-label-bold inline-flex items-center gap-2 hover:opacity-90 transition-opacity">
+              <Link to="/bespoke" className="animate-cta-glow bg-on-primary text-on-surface px-8 py-4 rounded-full text-label-bold inline-flex items-center gap-2 hover:opacity-90 transition-opacity">
                 Request Your Charter
                 <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </Link>
