@@ -102,7 +102,7 @@ function EmptyLegsPage() {
                   </div>
                   <div className="flex justify-between items-end mb-6">
                     <div className="text-right w-full">
-                      <p className="text-body-md text-outline line-through mb-1">Normally {l.normal}</p>
+                      <p className="text-body-md text-on-surface-variant line-through mb-1">Normally {l.normal}</p>
                       <p className="text-price-display text-on-surface leading-none">{l.price}</p>
                       <p className="text-body-md text-on-surface-variant mt-1">{l.detail}</p>
                     </div>

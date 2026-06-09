@@ -94,7 +94,7 @@ function HomePage() {
             Request Your Charter
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </Link>
-          <p className="relative z-10 text-sm text-on-surface-variant/70">Response within the hour · No obligation</p>
+          <p className="relative z-10 text-sm text-on-surface-variant">Response within the hour · No obligation</p>
         </section>
 
         <section className="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
