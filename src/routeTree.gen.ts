@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as InstagramRouteImport } from './routes/instagram'
 import { Route as HelicopterRouteImport } from './routes/helicopter'
 import { Route as FleetRouteImport } from './routes/fleet'
@@ -22,6 +23,11 @@ import { Route as RoutesSlugRouteImport } from './routes/routes.$slug'
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InstagramRoute = InstagramRouteImport.update({
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/fleet': typeof FleetRoute
   '/helicopter': typeof HelicopterRoute
   '/instagram': typeof InstagramRoute
+  '/pricing': typeof PricingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/routes/$slug': typeof RoutesSlugRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/fleet': typeof FleetRoute
   '/helicopter': typeof HelicopterRoute
   '/instagram': typeof InstagramRoute
+  '/pricing': typeof PricingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/routes/$slug': typeof RoutesSlugRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/fleet': typeof FleetRoute
   '/helicopter': typeof HelicopterRoute
   '/instagram': typeof InstagramRoute
+  '/pricing': typeof PricingRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/routes/$slug': typeof RoutesSlugRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/fleet'
     | '/helicopter'
     | '/instagram'
+    | '/pricing'
     | '/sitemap.xml'
     | '/routes/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/fleet'
     | '/helicopter'
     | '/instagram'
+    | '/pricing'
     | '/sitemap.xml'
     | '/routes/$slug'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/fleet'
     | '/helicopter'
     | '/instagram'
+    | '/pricing'
     | '/sitemap.xml'
     | '/routes/$slug'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   FleetRoute: typeof FleetRoute
   HelicopterRoute: typeof HelicopterRoute
   InstagramRoute: typeof InstagramRoute
+  PricingRoute: typeof PricingRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   RoutesSlugRoute: typeof RoutesSlugRoute
 }
@@ -154,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/instagram': {
@@ -223,9 +243,20 @@ const rootRouteChildren: RootRouteChildren = {
   FleetRoute: FleetRoute,
   HelicopterRoute: HelicopterRoute,
   InstagramRoute: InstagramRoute,
+  PricingRoute: PricingRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   RoutesSlugRoute: RoutesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
