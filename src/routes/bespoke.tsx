@@ -8,9 +8,13 @@ import jetInteriorAsset from "@/assets/jet-interior-hero.jpg.asset.json";
 export const Route = createFileRoute("/bespoke")({
   head: () => ({
     meta: [
-      { title: "Bespoke Charter Request — Amsterdam Jets" },
-      { name: "description", content: "Design your journey. Specify your routing, schedule, and preferences." },
+      { title: "Bespoke Private Jet Charter from Amsterdam — Amsterdam Jets" },
+      { name: "description", content: "Design your private jet charter from Amsterdam Schiphol. Specify routing, schedule and preferences — operator-agnostic sourcing from 10,000+ aircraft." },
+      { property: "og:title", content: "Bespoke Private Jet Charter from Amsterdam" },
+      { property: "og:description", content: "Design your private jet charter from Amsterdam Schiphol. Operator-agnostic sourcing, quotes within the hour." },
+      { property: "og:url", content: "https://amsterdamjet.com/bespoke" },
     ],
+    links: [{ rel: "canonical", href: "https://amsterdamjet.com/bespoke" }],
   }),
   component: BespokePage,
 });

@@ -7,9 +7,13 @@ import { locations } from "@/lib/locations";
 export const Route = createFileRoute("/empty-legs")({
   head: () => ({
     meta: [
-      { title: "Empty Legs — Amsterdam Jets" },
-      { name: "description", content: "Discounted empty-leg private jet flights across Europe." },
+      { title: "Empty Leg Private Jet Flights from Amsterdam — Amsterdam Jets" },
+      { name: "description", content: "Discounted empty-leg private jet flights from Amsterdam and across Europe. Up to 70% off retail charter rates, refreshed daily." },
+      { property: "og:title", content: "Empty Leg Private Jet Flights from Amsterdam" },
+      { property: "og:description", content: "Discounted one-way empty-leg flights across Europe — up to 70% off retail charter rates." },
+      { property: "og:url", content: "https://amsterdamjet.com/empty-legs" },
     ],
+    links: [{ rel: "canonical", href: "https://amsterdamjet.com/empty-legs" }],
   }),
   component: EmptyLegsPage,
 });

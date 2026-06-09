@@ -5,11 +5,13 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Amsterdam Jets" },
-      { name: "description", content: "Reach our flight team 24/7. Quotes within the hour." },
-      { property: "og:title", content: "Contact — Amsterdam Jets" },
-      { property: "og:description", content: "Reach our flight team 24/7. Quotes within the hour." },
+      { title: "Contact Amsterdam Jets — Private Jet Charter from Amsterdam" },
+      { name: "description", content: "Reach the Amsterdam Jets flight team 24/7. Email Amsterdamjets@gmail.com or message us on WhatsApp — quotes within the hour." },
+      { property: "og:title", content: "Contact Amsterdam Jets" },
+      { property: "og:description", content: "Email Amsterdamjets@gmail.com or WhatsApp our flight team — quotes within the hour." },
+      { property: "og:url", content: "https://amsterdamjet.com/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://amsterdamjet.com/contact" }],
   }),
   component: ContactPage,
 });
