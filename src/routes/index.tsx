@@ -210,6 +210,51 @@ function HomePage() {
           </div>
         </section>
 
+        {/* About — short factual block for LLM/AI search */}
+        <section className="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+          <div className="max-w-3xl mx-auto">
+            <p className="text-label-bold uppercase text-primary mb-3">About</p>
+            <h2 className="text-headline-md md:text-display-lg-mobile text-on-surface mb-6">
+              Private jet charter, based in Amsterdam.
+            </h2>
+            <p className="text-body-lg text-on-surface-variant mb-4">
+              Amsterdam Jets is an operator-agnostic private aviation broker headquartered in
+              Amsterdam, the Netherlands. We arrange private jet, helicopter and empty-leg flights
+              from Amsterdam Schiphol (AMS) and Rotterdam (RTM) to destinations across Europe, the
+              Middle East, North Africa, the United States and the Caribbean.
+            </p>
+            <p className="text-body-lg text-on-surface-variant">
+              Quotes are typically returned within the hour. Aircraft are sourced from a global
+              fleet of more than 10,000 Wyvern and ARGUS-rated jets, and can be airborne in as
+              little as two hours from confirmation. Reach our flight team 24/7 by WhatsApp or at
+              Amsterdamjets@gmail.com.
+            </p>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-headline-md md:text-display-lg-mobile text-on-surface mb-8">
+              Frequently asked
+            </h2>
+            <div className="flex flex-col gap-4">
+              {FAQS.map((f) => (
+                <div
+                  key={f.q}
+                  className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6"
+                >
+                  <h3 className="text-on-surface font-bold mb-2" style={{ fontSize: 18 }}>
+                    {f.q}
+                  </h3>
+                  <p className="text-body-md text-on-surface-variant">{f.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+
         {/* Closing CTA */}
         <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pb-section-gap">
           <div className="bg-on-surface text-on-primary rounded-3xl p-10 md:p-16 text-center">
