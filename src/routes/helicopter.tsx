@@ -76,7 +76,7 @@ function HelicopterPage() {
                 <div className="bg-primary-fixed text-on-primary-fixed rounded-full p-3 mb-6">
                   <span className="material-symbols-outlined">{u.icon}</span>
                 </div>
-                <h3 className="text-headline-md text-on-surface mb-3">{u.title}</h3>
+                <h2 className="text-headline-md text-on-surface mb-3">{u.title}</h2>
                 <p className="text-body-md text-on-surface-variant">{u.body}</p>
               </div>
             ))}
