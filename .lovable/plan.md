@@ -1,36 +1,25 @@
-## Plan
+# Fixes
 
-### 1. Fix missing images
+## 1. WhatsApp button works
+The `wa.me/message/Z6A6W7IAFVHAO1` URL is blocked inside Lovable's preview iframe (`ERR_BLOCKED_BY_RESPONSE`), so the link looks "broken" in preview but works on the published site. To make it work in both:
+- Change `WhatsAppButton.tsx` and the contact-page WhatsApp link from a plain `<a target="_blank">` to a button using `window.open(url, "_blank", "noopener")` so the new tab opens from the top window, escaping the preview iframe.
 
-- Audit pages for broken/missing images (likely on `fleet.tsx`, `helicopter.tsx`, `instagram.tsx`, location cards in `lib/locations.ts`, and the hero/section images on `index.tsx` and `bespoke.tsx`).
-- Replace any broken/empty `img src` with reliable Unsplash hotlinks (jets, interiors, helicopters, and per-destination cityscapes for London, Paris, Milan, Mallorca, Marbella, North Africa, Dubai, Abu Dhabi, New York, Caribbean).
+## 2. Contact form sends in-browser (no mail app)
+Replace the `mailto:` approach with a real server-side send via Lovable Cloud + Resend:
+- Enable Lovable Cloud.
+- Add `RESEND_API_KEY` secret (Resend free tier = 100 emails/day; sender starts as `onboarding@resend.dev` until a domain is verified).
+- Create `src/lib/contact.functions.ts` exporting `sendContact` (`createServerFn`, Zod-validated: name, email, phone?, message), which POSTs to Resend with `to: Amsterdamjets@gmail.com`, `reply_to: <user email>`.
+- Update `src/routes/contact.tsx` form to call `useServerFn(sendContact)`, show success/error toast, no `mailto:` redirect.
 
-### 2. WhatsApp button + links
+## 3. Broken destination images
+Swap the 404'ing Unsplash IDs in `src/lib/locations.ts`:
+- Marbella → working Mediterranean coast photo
+- North Africa → working Marrakech/Sahara photo
 
-- Update `src/components/WhatsAppButton.tsx` href to `https://wa.me/message/Z6A6W7IAFVHAO1`.
-- Update the WhatsApp link on `src/routes/contact.tsx` to the same URL.
+## Files
+- Edit: `src/components/WhatsAppButton.tsx`, `src/routes/contact.tsx`, `src/lib/locations.ts`
+- Create: `src/lib/contact.functions.ts`
+- Cloud: enable + add `RESEND_API_KEY`
 
-### 3. Email everywhere
-
-- Replace `fly@amsterdamjets.com` with `Amsterdamjets@gmail.com` on contact page, footer, and any JSON-LD/Organization schema.
-- Make the contact form submit via `mailto:Amsterdamjets@gmail.com` with subject + body built from form fields (opens user's mail client; no backend needed).
-
-### 4. SEO + AI SEO improvements with semrush
-
-- **Root (`__root.tsx`)**: add `og:site_name`, canonical-less defaults, and JSON-LD `Organization` (name, url `https://amsterdamjet.com`, logo, email `Amsterdamjets@gmail.com`, `sameAs` Instagram, `contactPoint` with phone + WhatsApp).
-- **Homepage (`index.tsx`)**: refine title/description toward "Private Jet Charter from Amsterdam — Schiphol"; add JSON-LD `WebSite` with `SearchAction`, and `Service` schema for private jet / helicopter / empty legs.
-- **Per-route pages**: ensure each (`empty-legs`, `bespoke`, `helicopter`, `fleet`, `contact`, `instagram`) has unique title, description, og tags, and canonical link to `https://amsterdamjet.com/<path>`.
-- **AI-search optimization** (LLM/Perplexity/ChatGPT friendliness):
-  - Add a concise, factual "About Amsterdam Jets" block to homepage (who, where, services, coverage, contact) — LLMs cite clear declarative copy.
-  - Expand FAQ JSON-LD coverage: add a `FAQPage` block on homepage and bespoke page (pricing, lead time, airports served from Amsterdam, payment, pets, luggage).
-  - Add `speakable` schema on key pages.
-  - Create `public/llms.txt` summarizing the site for AI crawlers (services, routes, contact).
-  - Update `public/robots.txt` to explicitly allow GPTBot, PerplexityBot, ClaudeBot, Google-Extended.
-- **Sitemap**: confirm `sitemap[.]xml.ts` uses `https://amsterdamjet.com` and includes every static + dynamic route.
-
-### Files touched
-
-- Edit: `src/components/WhatsAppButton.tsx`, `src/components/SiteFooter.tsx`, `src/routes/__root.tsx`, `src/routes/index.tsx`, `src/routes/contact.tsx`, `src/routes/bespoke.tsx`, `src/routes/empty-legs.tsx`, `src/routes/helicopter.tsx`, `src/routes/fleet.tsx`, `src/routes/instagram.tsx`, `src/routes/routes.$slug.tsx`, `src/routes/sitemap[.]xml.ts`, `src/lib/locations.ts`, `public/robots.txt`.
-- Create: `public/llms.txt`.
-
-No backend, dependencies, or design-system changes.
+## Note
+Email will send from `onboarding@resend.dev` until you verify `amsterdamjet.com` in Resend. Replies will still go to the visitor's address via `reply_to`.
