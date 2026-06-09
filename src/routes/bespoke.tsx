@@ -280,12 +280,16 @@ function FormCard({ title, children }: { title: string; children: React.ReactNod
 }
 
 function Field({ icon, label, children }: { icon: string; label: string; children: React.ReactNode }) {
+  const id = useId();
+  const child = isValidElement(children)
+    ? cloneElement(children as React.ReactElement<{ id?: string }>, { id })
+    : children;
   return (
     <div className="flex flex-col gap-2 z-20">
-      <label className="text-label-bold text-on-surface-variant flex items-center gap-2">
+      <label htmlFor={id} className="text-label-bold text-on-surface-variant flex items-center gap-2">
         <span className="material-symbols-outlined text-lg">{icon}</span> {label}
       </label>
-      {children}
+      {child}
     </div>
   );
 }
