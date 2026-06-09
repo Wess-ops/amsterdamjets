@@ -137,7 +137,7 @@ function ContactPage() {
               <p className="text-body-md text-red-500">{errorMsg}</p>
             )}
             {status !== "sent" && status !== "error" && (
-              <p className="text-sm text-on-surface-variant/70">
+              <p className="text-sm text-on-surface-variant">
                 Sent directly to our flight team — no email app required.
               </p>
             )}
@@ -161,7 +161,7 @@ function ContactPage() {
 }
 
 const inputCls =
-  "w-full bg-transparent border-b border-outline-variant/50 py-3 text-body-lg text-on-surface focus:outline-none focus:border-primary focus:border-b-2 transition-all placeholder:text-on-surface-variant/40";
+  "w-full bg-transparent border-b border-outline-variant/50 py-3 text-body-lg text-on-surface focus:outline-none focus:border-primary focus:border-b-2 transition-all placeholder:text-on-surface-variant";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (

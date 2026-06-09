@@ -201,7 +201,7 @@ function PricingPage() {
               </tbody>
             </table>
           </div>
-          <p className="text-sm text-on-surface-variant/70 mt-4">
+          <p className="text-sm text-on-surface-variant mt-4">
             * Rates exclude VAT where applicable, positioning, de-icing, VIP handling and catering upgrades. Final quotes are provided within the hour.
           </p>
         </section>

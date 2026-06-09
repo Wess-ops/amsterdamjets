@@ -142,7 +142,7 @@ function BespokePage() {
                 Request Your Charter
                 <span className="material-symbols-outlined">arrow_forward</span>
               </button>
-              <p className="text-sm text-on-surface-variant/70">Response within the hour · No obligation</p>
+              <p className="text-sm text-on-surface-variant">Response within the hour · No obligation</p>
             </div>
           </form>
         </section>
@@ -266,7 +266,7 @@ function BespokePage() {
 }
 
 const inputCls =
-  "w-full bg-transparent border-b border-outline-variant/50 py-3 text-body-lg text-on-surface focus:outline-none focus:border-primary focus:border-b-2 transition-all placeholder:text-on-surface-variant/40";
+  "w-full bg-transparent border-b border-outline-variant/50 py-3 text-body-lg text-on-surface focus:outline-none focus:border-primary focus:border-b-2 transition-all placeholder:text-on-surface-variant";
 
 function FormCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
