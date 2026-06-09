@@ -180,7 +180,7 @@ export const locations: Location[] = [
     name: "Marbella",
     region: "Costa del Sol, Spain",
     tagline: "Golf, beach clubs, and Europe's most reliable winter sun.",
-    img: "https://images.unsplash.com/photo-1551023960-1f7e9f74a32f?w=1200&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1602940659805-770d1b3b9911?w=1200&auto=format&fit=crop",
     airports: ["Málaga–Costa del Sol (AGP)", "Gibraltar (GIB)"],
     seasons:
       "Year-round mild climate. Peak in July/August and during the Volvo Match Play.",
@@ -218,7 +218,7 @@ export const locations: Location[] = [
     region: "Morocco & Tunisia",
     tagline:
       "Marrakech, Tangier, Essaouira — short hops from Southern Europe.",
-    img: "https://images.unsplash.com/photo-1539020140153-e479b8c5b6e7?w=1200&auto=format&fit=crop",
+    img: "https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=1200&auto=format&fit=crop",
     airports: [
       "Marrakech Menara (RAK)",
       "Tangier Ibn Battouta (TNG)",

@@ -1,9 +1,14 @@
+const WHATSAPP_URL = "https://wa.me/message/Z6A6W7IAFVHAO1";
+
 export function WhatsAppButton() {
+  const openWhatsApp = () => {
+    // window.open from a user gesture escapes the Lovable preview iframe.
+    window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
+  };
   return (
-    <a
-      href="https://wa.me/message/Z6A6W7IAFVHAO1"
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      type="button"
+      onClick={openWhatsApp}
       aria-label="Chat on WhatsApp"
       className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full w-14 h-14 flex items-center justify-center shadow-xl shadow-black/25 transition-transform hover:scale-110"
     >
@@ -22,6 +27,6 @@ export function WhatsAppButton() {
           d="M22.27 19.07c-.34-.17-2.02-1-2.33-1.11-.31-.11-.54-.17-.77.17-.23.34-.88 1.11-1.08 1.34-.2.23-.4.26-.74.09-.34-.17-1.44-.53-2.74-1.69a10.3 10.3 0 0 1-1.9-2.36c-.2-.34-.02-.52.15-.69.16-.15.34-.4.51-.6.17-.2.23-.34.34-.57.11-.23.06-.43-.03-.6-.09-.17-.77-1.86-1.06-2.54-.28-.67-.56-.58-.77-.59l-.66-.01c-.23 0-.6.09-.91.43-.31.34-1.19 1.16-1.19 2.83 0 1.66 1.22 3.27 1.39 3.5.17.23 2.4 3.66 5.81 5.14.81.35 1.45.56 1.94.72.81.26 1.56.22 2.14.13.65-.1 2.02-.83 2.31-1.62.28-.8.28-1.48.2-1.62-.08-.14-.31-.23-.65-.4z"
         />
       </svg>
-    </a>
+    </button>
   );
 }
