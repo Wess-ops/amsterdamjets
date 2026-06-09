@@ -23,7 +23,7 @@ const legs = [
     normal: "€15.000",
     price: "€7.700",
     detail: "Entire Jet",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD56qWY6nfI7c2pHcmTxGmPwMes09APSbKr5mYJdpfBAftNQ_p-yNXLgIQuel1FDpuOYMVGZFKG6psXxb2atnd0Mv7X1_8ZP5gZeweKXjzv1mun0uCN8macl-IxCGtEL1NVjr_YJkCCD5DgBfClq3IeRpMNYFD__S1hE5d0KaFk5N5CcQbheHkmvczdYV7uN2Q6UEqTqpPuZLnQIJ8fF-XMvsI4mFGnqMLC7vbQJaUO0HRitbKMLEEWASMgA0Fkt1mAf78A_sJ1Jhte",
+    img: "https://images.unsplash.com/photo-1569629743817-70d8db6c323b?w=1200&auto=format&fit=crop",
   },
   {
     from: "Amsterdam",
@@ -33,7 +33,7 @@ const legs = [
     normal: "€25.000",
     price: "€12.500",
     detail: "1 Pax · €100 per extra pax",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAj4Iax-SwzMAzsh06RrwOJXpfRcwIb8p_MypiU0eo_WjValG-bsIRahekNsaVOd6Od89wJKQ0YePZxBiLy26NxPstYElVKrmx0KwZk38DmDrnOAa7VSnqLSr9nPNCwX6Ct2iFob2QQyuENXnkhQ90jahr5WgNpjfZupkSVzLLo8R7LXNGSaDod0OTfPfBwpJDPabvtGvIpmDpXXkz0cgN6SlJHEJ3odebKvttDDLX-mqp-iP0gUI0R2R7Zw3oWxczjBYOPHPVs3OH8",
+    img: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=1200&auto=format&fit=crop",
   },
   {
     from: "Amsterdam",
@@ -43,7 +43,7 @@ const legs = [
     normal: "€25.000",
     price: "€12.930",
     detail: "Entire Jet",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDByrUnYNETRTyrHcgzpEDRw_kImynbgltBhAC1iTGk_dSVszafhdtCBLnBZmbgQa9cGMtW2401BTZNoA4ZTuXHYZRhDNGtneCuABRsIrE8UCKu3TekvGVY4fdQa6DWEOfT73LknBS4bBBKZ-2CH3dS9mKvCjxfMgI7RO4XTEegBXvfnI7hhXI3aKqclfs19Gc2qIEoGkDnfOMcN-y7ecIOGWJN2KJDTMFT6YbipWyRe4boAsLDdRTmzn4xX7nYM5ZaHB9AKZTcnv3o",
+    img: "https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=1200&auto=format&fit=crop",
   },
 ];
 

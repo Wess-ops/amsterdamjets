@@ -10,7 +10,8 @@ export function SiteFooter() {
             <span className="text-lg font-bold text-on-surface">Amsterdam Jets</span>
           </div>
           <p className="text-body-md text-on-surface-variant max-w-sm">
-            © 2026 Amsterdam Jets. All rights reserved. Private aviation, refined.
+            © 2026 Amsterdam Jets. Private aviation, refined.<br />
+            <a href="mailto:Amsterdamjets@gmail.com" className="hover:text-primary transition-colors">Amsterdamjets@gmail.com</a> · <a href="https://wa.me/message/Z6A6W7IAFVHAO1" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">WhatsApp</a>
           </p>
         </div>
         <div className="flex flex-wrap gap-x-8 gap-y-4 md:justify-end items-start pt-2">
