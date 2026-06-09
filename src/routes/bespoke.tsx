@@ -8,9 +8,13 @@ import jetInteriorAsset from "@/assets/jet-interior-hero.jpg.asset.json";
 export const Route = createFileRoute("/bespoke")({
   head: () => ({
     meta: [
-      { title: "Bespoke Charter Request — Amsterdam Jets" },
-      { name: "description", content: "Design your journey. Specify your routing, schedule, and preferences." },
+      { title: "Bespoke Private Jet Charter from Amsterdam — Amsterdam Jets" },
+      { name: "description", content: "Design your private jet charter from Amsterdam Schiphol. Specify routing, schedule and preferences — operator-agnostic sourcing from 10,000+ aircraft." },
+      { property: "og:title", content: "Bespoke Private Jet Charter from Amsterdam" },
+      { property: "og:description", content: "Design your private jet charter from Amsterdam Schiphol. Operator-agnostic sourcing, quotes within the hour." },
+      { property: "og:url", content: "https://amsterdamjet.com/bespoke" },
     ],
+    links: [{ rel: "canonical", href: "https://amsterdamjet.com/bespoke" }],
   }),
   component: BespokePage,
 });
@@ -213,10 +217,10 @@ function BespokePage() {
                 requests.
               </p>
               <a
-                href="mailto:concierge@amsterdamjets.com"
+                href="mailto:Amsterdamjets@gmail.com?subject=Concierge%20account%20request"
                 className="bg-on-primary text-on-surface px-6 py-3 rounded-full text-label-bold inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
               >
-                concierge@amsterdamjets.com
+                Amsterdamjets@gmail.com
                 <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </a>
             </div>

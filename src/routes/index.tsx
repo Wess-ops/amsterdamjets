@@ -4,6 +4,29 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SegmentedNav } from "@/components/SegmentedNav";
 import { locations } from "@/lib/locations";
 
+const FAQS = [
+  {
+    q: "How much does a private jet from Amsterdam cost?",
+    a: "From €7,900 one-way Amsterdam to Paris on a light jet, €8,500 to London, €16,000 to Mallorca and €55,000+ to Dubai on a super-mid. Empty-leg pricing on European corridors regularly drops 40–70%.",
+  },
+  {
+    q: "Which airport do private jets use in Amsterdam?",
+    a: "Most charter flights depart from Amsterdam Schiphol (AMS), specifically Schiphol-Oost, which is the dedicated general aviation terminal. Rotterdam The Hague (RTM) is also used for short-leg European flights.",
+  },
+  {
+    q: "How quickly can a charter be arranged?",
+    a: "Quotes are typically returned inside the hour. Aircraft can be sourced and airborne in as little as two hours from confirmation, subject to crew callout and slot coordination.",
+  },
+  {
+    q: "Do you offer empty legs?",
+    a: "Yes — discounted one-way empty legs across Europe are listed on our Empty Legs page and refreshed daily. Set a route alert and we'll message you when a match comes up.",
+  },
+  {
+    q: "Is Amsterdam Jets an operator or a broker?",
+    a: "We are operator-agnostic. That means we source the optimal aircraft for each mission from a global fleet of more than 10,000 Wyvern and ARGUS-rated aircraft, rather than pushing a fixed fleet.",
+  },
+];
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -11,9 +34,32 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Private jet charter from Amsterdam Schiphol to London, Paris, Ibiza, Mallorca, Dubai and beyond. Empty legs, bespoke charters and helicopter transfers — quotes within the hour." },
       { property: "og:title", content: "Private Jet Charter from Amsterdam — Amsterdam Jets" },
       { property: "og:description", content: "Charter any jet, anywhere. Empty legs, bespoke charters and helicopter transfers from Amsterdam Schiphol." },
-      { property: "og:url", content: "https://amsterdamjets.lovable.app/" },
+      { property: "og:url", content: "https://amsterdamjet.com/" },
     ],
-    links: [{ rel: "canonical", href: "https://amsterdamjets.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://amsterdamjet.com/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Amsterdam Jets",
+          url: "https://amsterdamjet.com",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+    ],
   }),
   component: HomePage,
 });
@@ -87,9 +133,9 @@ function HomePage() {
           <div className="relative w-full h-[600px] rounded-3xl overflow-hidden shadow-2xl">
             <div className="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent z-10" />
             <img
-              alt="Private Jet at Dusk"
+              alt="Private jet at dusk"
               className="w-full h-full object-cover object-center"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaKiPv5Tfa536UGiAdR99DB4wO6BysObsMiDSVAJcN0OSm_OVmqmhdm8XQTqvJ06ir8SEZH9pYJtyt6pqC32qD63NYEbRV1vNQceWnRlPdye6mNL8nVQUTpfMtxdG4KXKxEs25ER_WyNkmIAuIjuXvgegYqhvLJ0lRo2LtHBgXNVZJCWj-mspSdvouxf5cPHgvbU9JUHjf4pbGBEPFEt5jaGBycfKEbJwKIxwNFNrnufzYUHawaAWtZkBTidqYmkX53qPwHkFb8z8N"
+              src="https://images.unsplash.com/photo-1583416750470-965b2707b355?w=1800&auto=format&fit=crop"
             />
             <div className="absolute bottom-12 left-12 z-20 max-w-xl">
               <span className="bg-surface-container-lowest/20 backdrop-blur-md text-on-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">
@@ -163,6 +209,51 @@ function HomePage() {
             ))}
           </div>
         </section>
+
+        {/* About — short factual block for LLM/AI search */}
+        <section className="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+          <div className="max-w-3xl mx-auto">
+            <p className="text-label-bold uppercase text-primary mb-3">About</p>
+            <h2 className="text-headline-md md:text-display-lg-mobile text-on-surface mb-6">
+              Private jet charter, based in Amsterdam.
+            </h2>
+            <p className="text-body-lg text-on-surface-variant mb-4">
+              Amsterdam Jets is an operator-agnostic private aviation broker headquartered in
+              Amsterdam, the Netherlands. We arrange private jet, helicopter and empty-leg flights
+              from Amsterdam Schiphol (AMS) and Rotterdam (RTM) to destinations across Europe, the
+              Middle East, North Africa, the United States and the Caribbean.
+            </p>
+            <p className="text-body-lg text-on-surface-variant">
+              Quotes are typically returned within the hour. Aircraft are sourced from a global
+              fleet of more than 10,000 Wyvern and ARGUS-rated jets, and can be airborne in as
+              little as two hours from confirmation. Reach our flight team 24/7 by WhatsApp or at
+              Amsterdamjets@gmail.com.
+            </p>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-headline-md md:text-display-lg-mobile text-on-surface mb-8">
+              Frequently asked
+            </h2>
+            <div className="flex flex-col gap-4">
+              {FAQS.map((f) => (
+                <div
+                  key={f.q}
+                  className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6"
+                >
+                  <h3 className="text-on-surface font-bold mb-2" style={{ fontSize: 18 }}>
+                    {f.q}
+                  </h3>
+                  <p className="text-body-md text-on-surface-variant">{f.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
 
         {/* Closing CTA */}
         <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pb-section-gap">

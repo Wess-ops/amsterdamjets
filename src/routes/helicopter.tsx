@@ -6,13 +6,13 @@ import { SegmentedNav } from "@/components/SegmentedNav";
 export const Route = createFileRoute("/helicopter")({
   head: () => ({
     meta: [
-      { title: "Helicopter Charter — Amsterdam Jets" },
-      {
-        name: "description",
-        content:
-          "On-demand helicopter charters across Europe for business, leisure, transfers and real estate showings.",
-      },
+      { title: "Helicopter Charter from Amsterdam & Across Europe — Amsterdam Jets" },
+      { name: "description", content: "On-demand helicopter charter from Amsterdam and across Europe — business transfers, leisure, real-estate showings and events." },
+      { property: "og:title", content: "Helicopter Charter from Amsterdam & Across Europe" },
+      { property: "og:description", content: "On-demand helicopter charter across Europe — business, leisure, transfers, real-estate showings." },
+      { property: "og:url", content: "https://amsterdamjet.com/helicopter" },
     ],
+    links: [{ rel: "canonical", href: "https://amsterdamjet.com/helicopter" }],
   }),
   component: HelicopterPage,
 });

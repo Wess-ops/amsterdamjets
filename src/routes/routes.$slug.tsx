@@ -3,7 +3,7 @@ import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { locations } from "@/lib/locations";
 
-const SITE = "https://amsterdamjets.lovable.app";
+const SITE = "https://amsterdamjet.com";
 
 function buildFaq(loc: (typeof locations)[number]) {
   return [

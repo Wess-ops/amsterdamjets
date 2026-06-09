@@ -78,15 +78,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Amsterdam Jets | Private Aviation, Refined" },
-      { name: "description", content: "Charter any jet, anywhere. Bespoke charters, empty legs, and curated destinations." },
-      { property: "og:title", content: "Amsterdam Jets | Private Aviation, Refined" },
-      { property: "og:description", content: "Charter any jet, anywhere. Bespoke charters, empty legs, and curated destinations." },
+      { title: "Amsterdam Jets | Private Jet Charter from Amsterdam" },
+      { name: "description", content: "Private jet, helicopter and empty-leg charter from Amsterdam Schiphol. Quotes within the hour, global aircraft sourcing, 24/7 flight team." },
+      { property: "og:site_name", content: "Amsterdam Jets" },
+      { property: "og:title", content: "Amsterdam Jets | Private Jet Charter from Amsterdam" },
+      { property: "og:description", content: "Private jet, helicopter and empty-leg charter from Amsterdam Schiphol. Quotes within the hour." },
       { property: "og:type", content: "website" },
-      { name: "twitter:title", content: "Amsterdam Jets | Private Aviation, Refined" },
-      { name: "twitter:description", content: "Charter any jet, anywhere. Bespoke charters, empty legs, and curated destinations." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/066b86e9-6b0d-465e-9d34-b83851818840/id-preview-88c801bd--b84541fa-f350-4c70-9916-70c3e1a6fc9e.lovable.app-1780771870496.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/066b86e9-6b0d-465e-9d34-b83851818840/id-preview-88c801bd--b84541fa-f350-4c70-9916-70c3e1a6fc9e.lovable.app-1780771870496.png" },
+      { name: "twitter:title", content: "Amsterdam Jets | Private Jet Charter from Amsterdam" },
+      { name: "twitter:description", content: "Private jet, helicopter and empty-leg charter from Amsterdam Schiphol." },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -95,6 +94,38 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700;800&display=swap" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Amsterdam Jets",
+          url: "https://amsterdamjet.com",
+          email: "Amsterdamjets@gmail.com",
+          description:
+            "Private jet, helicopter and empty-leg charter broker based in Amsterdam, the Netherlands.",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Amsterdam",
+            addressCountry: "NL",
+          },
+          sameAs: [
+            "https://instagram.com/amsterdamjets",
+            "https://wa.me/message/Z6A6W7IAFVHAO1",
+          ],
+          contactPoint: [
+            {
+              "@type": "ContactPoint",
+              contactType: "customer service",
+              email: "Amsterdamjets@gmail.com",
+              availableLanguage: ["English", "Dutch"],
+              areaServed: "Worldwide",
+            },
+          ],
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,

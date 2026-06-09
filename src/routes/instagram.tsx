@@ -5,11 +5,13 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/instagram")({
   head: () => ({
     meta: [
-      { title: "Instagram — Amsterdam Jets" },
+      { title: "Instagram @amsterdamjets — Amsterdam Jets" },
       { name: "description", content: "Follow @amsterdamjets — empty legs, charters and helicopter trips across the globe." },
       { property: "og:title", content: "Follow @amsterdamjets" },
       { property: "og:description", content: "Empty legs, charters and helicopter trips across the globe." },
+      { property: "og:url", content: "https://amsterdamjet.com/instagram" },
     ],
+    links: [{ rel: "canonical", href: "https://amsterdamjet.com/instagram" }],
   }),
   component: InstagramPage,
 });

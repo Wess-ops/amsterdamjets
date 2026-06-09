@@ -6,13 +6,13 @@ import { locations } from "@/lib/locations";
 export const Route = createFileRoute("/fleet")({
   head: () => ({
     meta: [
-      { title: "Private Jet Destinations & Guides — Amsterdam Jets" },
-      {
-        name: "description",
-        content:
-          "Private jet and helicopter guides for London, Paris, Milan, Mallorca, Marbella, Dubai, New York, the Caribbean and more.",
-      },
+      { title: "Private Jet Destinations from Amsterdam — Route Guides | Amsterdam Jets" },
+      { name: "description", content: "Route guides for private jet charter from Amsterdam to London, Paris, Milan, Mallorca, Marbella, Dubai, New York, the Caribbean and more — airports, pricing and timing." },
+      { property: "og:title", content: "Private Jet Destinations from Amsterdam — Route Guides" },
+      { property: "og:description", content: "Airports, pricing and timing for private jet routes from Amsterdam." },
+      { property: "og:url", content: "https://amsterdamjet.com/fleet" },
     ],
+    links: [{ rel: "canonical", href: "https://amsterdamjet.com/fleet" }],
   }),
   component: FleetPage,
 });
