@@ -31,9 +31,9 @@ function ContactPage() {
 
         <section className="max-w-[900px] mx-auto px-margin-mobile grid md:grid-cols-3 gap-gutter mb-section-gap">
           {[
-            { i: "call", t: "Phone", v: "+31 6 1234 5678", href: "tel:+31612345678" },
-            { i: "mail", t: "Email", v: "fly@amsterdamjets.com", href: "mailto:fly@amsterdamjets.com" },
-            { i: "chat", t: "WhatsApp", v: "Message us", href: "https://wa.me/31612345678" },
+            { i: "mail", t: "Email", v: "Amsterdamjets@gmail.com", href: "mailto:Amsterdamjets@gmail.com" },
+            { i: "chat", t: "WhatsApp", v: "Message us", href: "https://wa.me/message/Z6A6W7IAFVHAO1" },
+            { i: "schedule", t: "Hours", v: "24/7 · Reply within the hour", href: "mailto:Amsterdamjets@gmail.com" },
           ].map((c) => (
             <a
               key={c.t}
@@ -49,7 +49,19 @@ function ContactPage() {
 
         <section className="max-w-[800px] mx-auto px-margin-mobile md:px-0">
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault();
+              const fd = new FormData(e.currentTarget);
+              const name = String(fd.get("name") || "");
+              const email = String(fd.get("email") || "");
+              const phone = String(fd.get("phone") || "");
+              const message = String(fd.get("message") || "");
+              const subject = encodeURIComponent(`Charter enquiry — ${name || "Website"}`);
+              const body = encodeURIComponent(
+                `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`,
+              );
+              window.location.href = `mailto:Amsterdamjets@gmail.com?subject=${subject}&body=${body}`;
+            }}
             className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 md:p-12 flex flex-col gap-8"
           >
             <h2 className="text-headline-md text-on-surface border-b border-outline-variant/20 pb-4">
@@ -57,17 +69,17 @@ function ContactPage() {
             </h2>
             <div className="grid md:grid-cols-2 gap-gutter">
               <Field label="Name">
-                <input type="text" placeholder="Your full name" className={inputCls} />
+                <input name="name" type="text" required placeholder="Your full name" className={inputCls} />
               </Field>
               <Field label="Email">
-                <input type="email" placeholder="you@email.com" className={inputCls} />
+                <input name="email" type="email" required placeholder="you@email.com" className={inputCls} />
               </Field>
             </div>
             <Field label="Phone">
-              <input type="tel" placeholder="+31 ..." className={inputCls} />
+              <input name="phone" type="tel" placeholder="+31 ..." className={inputCls} />
             </Field>
             <Field label="How can we help?">
-              <textarea rows={5} placeholder="Tell us about your trip" className={inputCls} />
+              <textarea name="message" rows={5} placeholder="Tell us about your trip" className={inputCls} />
             </Field>
             <button
               type="submit"
@@ -76,6 +88,9 @@ function ContactPage() {
               Send message
               <span className="material-symbols-outlined text-sm">arrow_forward</span>
             </button>
+            <p className="text-sm text-on-surface-variant/70">
+              This opens your email app pre-addressed to Amsterdamjets@gmail.com.
+            </p>
           </form>
 
           <div className="flex flex-col items-center gap-3 pt-12">

@@ -87,9 +87,9 @@ function HomePage() {
           <div className="relative w-full h-[600px] rounded-3xl overflow-hidden shadow-2xl">
             <div className="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent z-10" />
             <img
-              alt="Private Jet at Dusk"
+              alt="Private jet at dusk"
               className="w-full h-full object-cover object-center"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaKiPv5Tfa536UGiAdR99DB4wO6BysObsMiDSVAJcN0OSm_OVmqmhdm8XQTqvJ06ir8SEZH9pYJtyt6pqC32qD63NYEbRV1vNQceWnRlPdye6mNL8nVQUTpfMtxdG4KXKxEs25ER_WyNkmIAuIjuXvgegYqhvLJ0lRo2LtHBgXNVZJCWj-mspSdvouxf5cPHgvbU9JUHjf4pbGBEPFEt5jaGBycfKEbJwKIxwNFNrnufzYUHawaAWtZkBTidqYmkX53qPwHkFb8z8N"
+              src="https://images.unsplash.com/photo-1583416750470-965b2707b355?w=1800&auto=format&fit=crop"
             />
             <div className="absolute bottom-12 left-12 z-20 max-w-xl">
               <span className="bg-surface-container-lowest/20 backdrop-blur-md text-on-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">

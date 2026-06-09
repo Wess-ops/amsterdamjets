@@ -213,10 +213,10 @@ function BespokePage() {
                 requests.
               </p>
               <a
-                href="mailto:concierge@amsterdamjets.com"
+                href="mailto:Amsterdamjets@gmail.com?subject=Concierge%20account%20request"
                 className="bg-on-primary text-on-surface px-6 py-3 rounded-full text-label-bold inline-flex items-center gap-2 hover:opacity-90 transition-opacity"
               >
-                concierge@amsterdamjets.com
+                Amsterdamjets@gmail.com
                 <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </a>
             </div>
