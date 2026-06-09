@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { supabase } from "@/integrations/supabase/client";
+
+const WHATSAPP_URL = "https://wa.me/message/Z6A6W7IAFVHAO1";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -17,6 +21,46 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const openWhatsApp = () => window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const name = String(fd.get("name") || "").trim();
+    const email = String(fd.get("email") || "").trim();
+    const phone = String(fd.get("phone") || "").trim() || null;
+    const message = String(fd.get("message") || "").trim();
+
+    if (!name || !email || !message) {
+      setStatus("error");
+      setErrorMsg("Please fill in your name, email and message.");
+      return;
+    }
+    if (name.length > 200 || email.length > 320 || message.length > 5000) {
+      setStatus("error");
+      setErrorMsg("One of the fields is too long.");
+      return;
+    }
+
+    setStatus("sending");
+    setErrorMsg("");
+    const { error } = await supabase
+      .from("contact_messages")
+      .insert({ name, email, phone, message });
+
+    if (error) {
+      setStatus("error");
+      setErrorMsg("Something went wrong sending your message. Please WhatsApp us instead.");
+      return;
+    }
+    setStatus("sent");
+    form.reset();
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <SiteNav />
@@ -32,38 +76,33 @@ function ContactPage() {
         </section>
 
         <section className="max-w-[900px] mx-auto px-margin-mobile grid md:grid-cols-3 gap-gutter mb-section-gap">
-          {[
-            { i: "mail", t: "Email", v: "Amsterdamjets@gmail.com", href: "mailto:Amsterdamjets@gmail.com" },
-            { i: "chat", t: "WhatsApp", v: "Message us", href: "https://wa.me/message/Z6A6W7IAFVHAO1" },
-            { i: "schedule", t: "Hours", v: "24/7 · Reply within the hour", href: "mailto:Amsterdamjets@gmail.com" },
-          ].map((c) => (
-            <a
-              key={c.t}
-              href={c.href}
-              className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 hover:border-primary/40 transition-colors"
-            >
-              <span className="material-symbols-outlined text-primary mb-3 block">{c.i}</span>
-              <h3 className="text-on-surface font-bold mb-1">{c.t}</h3>
-              <p className="text-body-md text-on-surface-variant">{c.v}</p>
-            </a>
-          ))}
+          <a
+            href="mailto:Amsterdamjets@gmail.com"
+            className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 hover:border-primary/40 transition-colors"
+          >
+            <span className="material-symbols-outlined text-primary mb-3 block">mail</span>
+            <h3 className="text-on-surface font-bold mb-1">Email</h3>
+            <p className="text-body-md text-on-surface-variant">Amsterdamjets@gmail.com</p>
+          </a>
+          <button
+            type="button"
+            onClick={openWhatsApp}
+            className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 hover:border-primary/40 transition-colors text-left"
+          >
+            <span className="material-symbols-outlined text-primary mb-3 block">chat</span>
+            <h3 className="text-on-surface font-bold mb-1">WhatsApp</h3>
+            <p className="text-body-md text-on-surface-variant">Message us</p>
+          </button>
+          <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6">
+            <span className="material-symbols-outlined text-primary mb-3 block">schedule</span>
+            <h3 className="text-on-surface font-bold mb-1">Hours</h3>
+            <p className="text-body-md text-on-surface-variant">24/7 · Reply within the hour</p>
+          </div>
         </section>
 
         <section className="max-w-[800px] mx-auto px-margin-mobile md:px-0">
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const fd = new FormData(e.currentTarget);
-              const name = String(fd.get("name") || "");
-              const email = String(fd.get("email") || "");
-              const phone = String(fd.get("phone") || "");
-              const message = String(fd.get("message") || "");
-              const subject = encodeURIComponent(`Charter enquiry — ${name || "Website"}`);
-              const body = encodeURIComponent(
-                `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`,
-              );
-              window.location.href = `mailto:Amsterdamjets@gmail.com?subject=${subject}&body=${body}`;
-            }}
+            onSubmit={handleSubmit}
             className="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 md:p-12 flex flex-col gap-8"
           >
             <h2 className="text-headline-md text-on-surface border-b border-outline-variant/20 pb-4">
@@ -71,28 +110,37 @@ function ContactPage() {
             </h2>
             <div className="grid md:grid-cols-2 gap-gutter">
               <Field label="Name">
-                <input name="name" type="text" required placeholder="Your full name" className={inputCls} />
+                <input name="name" type="text" required maxLength={200} placeholder="Your full name" className={inputCls} />
               </Field>
               <Field label="Email">
-                <input name="email" type="email" required placeholder="you@email.com" className={inputCls} />
+                <input name="email" type="email" required maxLength={320} placeholder="you@email.com" className={inputCls} />
               </Field>
             </div>
             <Field label="Phone">
-              <input name="phone" type="tel" placeholder="+31 ..." className={inputCls} />
+              <input name="phone" type="tel" maxLength={50} placeholder="+31 ..." className={inputCls} />
             </Field>
             <Field label="How can we help?">
-              <textarea name="message" rows={5} placeholder="Tell us about your trip" className={inputCls} />
+              <textarea name="message" rows={5} required maxLength={5000} placeholder="Tell us about your trip" className={inputCls} />
             </Field>
             <button
               type="submit"
-              className="bg-on-surface text-on-primary px-8 py-4 rounded-full text-label-bold inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity self-start"
+              disabled={status === "sending"}
+              className="bg-on-surface text-on-primary px-8 py-4 rounded-full text-label-bold inline-flex items-center justify-center gap-2 hover:opacity-90 transition-opacity self-start disabled:opacity-60"
             >
-              Send message
+              {status === "sending" ? "Sending..." : "Send message"}
               <span className="material-symbols-outlined text-sm">arrow_forward</span>
             </button>
-            <p className="text-sm text-on-surface-variant/70">
-              This opens your email app pre-addressed to Amsterdamjets@gmail.com.
-            </p>
+            {status === "sent" && (
+              <p className="text-body-md text-primary">Thanks — your message has been sent. We'll reply within the hour.</p>
+            )}
+            {status === "error" && (
+              <p className="text-body-md text-red-500">{errorMsg}</p>
+            )}
+            {status !== "sent" && status !== "error" && (
+              <p className="text-sm text-on-surface-variant/70">
+                Sent directly to our flight team — no email app required.
+              </p>
+            )}
           </form>
 
           <div className="flex flex-col items-center gap-3 pt-12">
