@@ -129,7 +129,7 @@ function HomePage() {
                 <div className={`${f.bg} rounded-full p-3 mb-6 ${f.fg}`}>
                   <span className="material-symbols-outlined">{f.icon}</span>
                 </div>
-                <h3 className="text-headline-md text-on-surface mb-4">{f.title}</h3>
+                <h2 className="text-headline-md text-on-surface mb-4">{f.title}</h2>
                 <p className="text-body-md text-on-surface-variant">{f.body}</p>
               </div>
             ))}
