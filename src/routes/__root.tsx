@@ -87,6 +87,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:title", content: "Amsterdam Jets | Private Jet Charter from Amsterdam" },
       { name: "twitter:description", content: "Private jet, helicopter and empty-leg charter from Amsterdam Schiphol." },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "google-site-verification", content: "yFCBofUMUeVyy5E5g8GaJBJr8AxVJ4KYfdVYxeCSPuQ" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
