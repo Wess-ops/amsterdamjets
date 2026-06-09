@@ -139,5 +139,5 @@ function CityHeading({ name }: { name: string }) {
       </Link>
     );
   }
-  return <h3 className="text-headline-md text-on-surface">{name}</h3>;
+  return <p className="text-headline-md text-on-surface">{name}</p>;
 }
