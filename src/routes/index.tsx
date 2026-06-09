@@ -69,25 +69,32 @@ function HomePage() {
     <div className="min-h-screen flex flex-col">
       <SiteNav />
       <main className="flex-grow">
-        <section className="pt-24 pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center flex flex-col items-center">
-          <div className="mb-16">
+        <section className="relative pt-24 pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center flex flex-col items-center overflow-hidden">
+          <img
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none select-none"
+            src="https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=1800&auto=format&fit=crop"
+          />
+          <div className="absolute inset-0 bg-background/80 pointer-events-none" />
+          <div className="relative z-10 mb-16">
             <SegmentedNav active="/bespoke" />
           </div>
-          <h1 className="text-display-lg-mobile md:text-display-lg text-on-surface mb-6 max-w-4xl mx-auto">
+          <h1 className="relative z-10 text-display-lg-mobile md:text-display-lg text-on-surface mb-6 max-w-4xl mx-auto">
             Charter any jet,<br />anywhere.
           </h1>
-          <p className="text-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto">
+          <p className="relative z-10 text-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto">
             No fleet limits. No fixed routes. Tell us where you want to go and we handle everything —
             aircraft selection, permits, ground transport.
           </p>
           <Link
             to="/bespoke"
-            className="animate-cta-glow bg-primary hover:bg-primary-container text-on-primary text-label-bold px-8 py-4 rounded-full inline-flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 mb-4"
+            className="relative z-10 animate-cta-glow bg-primary hover:bg-primary-container text-on-primary text-label-bold px-8 py-4 rounded-full inline-flex items-center gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 mb-4"
           >
             Request Your Charter
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </Link>
-          <p className="text-sm text-on-surface-variant/70">Response within the hour · No obligation</p>
+          <p className="relative z-10 text-sm text-on-surface-variant/70">Response within the hour · No obligation</p>
         </section>
 
         <section className="pb-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
