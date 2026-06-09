@@ -21,6 +21,9 @@ export function SiteFooter() {
           <Link to="/bespoke" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
             Bespoke Charter
           </Link>
+          <Link to="/pricing" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
+            Pricing
+          </Link>
           <Link to="/helicopter" className="text-on-surface-variant hover:text-primary transition-colors text-body-md">
             Helicopter
           </Link>
