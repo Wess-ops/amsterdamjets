@@ -59,6 +59,14 @@ function EmptyLegsPage() {
         <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 flex justify-center">
           <SegmentedNav active="/empty-legs" />
         </section>
+        <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-8 text-center">
+          <h1 className="text-display-lg-mobile md:text-display-lg text-on-surface max-w-3xl mx-auto mb-4">
+            Empty Leg Private Jet Flights
+          </h1>
+          <p className="text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+            One-way private jet repositioning flights at up to 70% off retail charter rates — refreshed daily.
+          </p>
+        </section>
         <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
             {legs.map((l) => (
