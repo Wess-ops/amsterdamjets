@@ -4,6 +4,29 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SegmentedNav } from "@/components/SegmentedNav";
 import { locations } from "@/lib/locations";
 
+const FAQS = [
+  {
+    q: "How much does a private jet from Amsterdam cost?",
+    a: "From €7,900 one-way Amsterdam to Paris on a light jet, €8,500 to London, €16,000 to Mallorca and €55,000+ to Dubai on a super-mid. Empty-leg pricing on European corridors regularly drops 40–70%.",
+  },
+  {
+    q: "Which airport do private jets use in Amsterdam?",
+    a: "Most charter flights depart from Amsterdam Schiphol (AMS), specifically Schiphol-Oost, which is the dedicated general aviation terminal. Rotterdam The Hague (RTM) is also used for short-leg European flights.",
+  },
+  {
+    q: "How quickly can a charter be arranged?",
+    a: "Quotes are typically returned inside the hour. Aircraft can be sourced and airborne in as little as two hours from confirmation, subject to crew callout and slot coordination.",
+  },
+  {
+    q: "Do you offer empty legs?",
+    a: "Yes — discounted one-way empty legs across Europe are listed on our Empty Legs page and refreshed daily. Set a route alert and we'll message you when a match comes up.",
+  },
+  {
+    q: "Is Amsterdam Jets an operator or a broker?",
+    a: "We are operator-agnostic. That means we source the optimal aircraft for each mission from a global fleet of more than 10,000 Wyvern and ARGUS-rated aircraft, rather than pushing a fixed fleet.",
+  },
+];
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -11,9 +34,32 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Private jet charter from Amsterdam Schiphol to London, Paris, Ibiza, Mallorca, Dubai and beyond. Empty legs, bespoke charters and helicopter transfers — quotes within the hour." },
       { property: "og:title", content: "Private Jet Charter from Amsterdam — Amsterdam Jets" },
       { property: "og:description", content: "Charter any jet, anywhere. Empty legs, bespoke charters and helicopter transfers from Amsterdam Schiphol." },
-      { property: "og:url", content: "https://amsterdamjets.lovable.app/" },
+      { property: "og:url", content: "https://amsterdamjet.com/" },
     ],
-    links: [{ rel: "canonical", href: "https://amsterdamjets.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://amsterdamjet.com/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Amsterdam Jets",
+          url: "https://amsterdamjet.com",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+    ],
   }),
   component: HomePage,
 });
